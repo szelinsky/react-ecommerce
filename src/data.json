@@ -1,0 +1,49 @@
+{
+	"products": [
+		{
+			"id": 1,
+			"name": "225/50R17 Targum Winter 4",
+			"season": "winter",
+			"protector": "new",
+			"quantity": 4,
+			"photo": "http://localhost:3000/images/tire01.png",
+			"price": 1250
+		},
+		{
+			"id": 2,
+			"name": "195/65R15 Momo North Pole W1",
+			"season": "summer",
+			"protector": "5_6mm",
+			"quantity": 4,
+			"photo": "http://localhost:3000/images/tire02.png",
+			"price": 1650
+		},
+		{
+			"id": 3,
+			"name": "185/70R14 Debica Frigo 2",
+			"season": "winter",
+			"protector": "new",
+			"quantity": 2,
+			"photo": "http://localhost:3000/images/tire03.png",
+			"price": 1800
+		},
+		{
+			"id": 4,
+			"name": "215/60R17 Semperit Speed-Grip 2",
+			"season": "winter",
+			"protector": "7mm",
+			"quantity": 1,
+			"photo": "http://localhost:3000/images/tire04.png",
+			"price": 1350
+		},
+		{
+			"id": 5,
+			"name": "225/45R17 Pirelli Winter 210 SottoZero 2",
+			"season": "summer",
+			"protector": "5_6mm",
+			"quantity": 3,
+			"photo": "http://localhost:3000/images/tire05.png",
+			"price": 900
+		}
+	]
+}
