@@ -1,16 +1,21 @@
-import { useState, useEffect } from 'react';
-import db from '../../data.json';
-import { PROTECTORS } from '../../constants/protectors';
+import { useState, useEffect } from "react";
+import db from "../../data.json";
+import { PROTECTORS } from "../../constants/protectors";
 
 export const useProducts = () => {
   const [data, setData] = useState(db.products);
   const [activeFilter, setActiveFilter] = useState({
     protectors: [],
-    season: [],
+    season: "",
   });
   const [filteredList, setFilteredList] = useState([]);
 
-  const onFilterChange = (filter, category) => {
+  const onBtnChange = (filter, category) => {
+    //console.log(filter, category);
+    setActiveFilter((prevState) => ({ ...prevState, season: filter }));
+  };
+
+  const onCheckboxChange = (filter, category) => {
     const activeCategory = activeFilter[category];
     if (activeCategory.includes(filter)) {
       const filterIndex = activeCategory.indexOf(filter);
@@ -55,7 +60,8 @@ export const useProducts = () => {
   }, [activeFilter]);
   return {
     activeFilter,
-    onFilterChange,
+    onCheckboxChange,
+    onBtnChange,
     filteredList,
     data,
   };

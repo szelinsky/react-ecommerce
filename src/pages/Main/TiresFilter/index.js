@@ -5,8 +5,6 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -32,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function TiresFilter({ activeFilter, onFilterChange }) {
+export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
   const classes = useStyles();
   const [alignment, setAlignment] = useState('left');
 
@@ -71,7 +69,7 @@ export function TiresFilter({ activeFilter, onFilterChange }) {
             <Button
               variant="outlined"
               disableElevation
-              onClick={() => onFilterChange('winter', 'season')}
+              onClick={() => onBtnChange('winter', 'season')}
             >
               Зима
             </Button>
@@ -79,7 +77,7 @@ export function TiresFilter({ activeFilter, onFilterChange }) {
               variant="contained"
               color="primary"
               disableElevation
-              onClick={() => onFilterChange('summer', 'season')}
+              onClick={() => onBtnChange('summer', 'season')}
             >
               Лето
             </Button>
@@ -104,7 +102,7 @@ export function TiresFilter({ activeFilter, onFilterChange }) {
                     color="primary"
                     checked={activeFilter.protectors.includes(filter)}
                     //value={check.agree}
-                    onChange={() => onFilterChange(filter, 'protectors')}
+                    onChange={() => onCheckboxChange(filter, 'protectors')}
                     name={filter}
                   />
                 }
