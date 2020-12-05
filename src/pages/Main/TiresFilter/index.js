@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function TiresFilter({ activeFilter, onFilterChange }) {
+export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
   const classes = useStyles();
   const [alignment, setAlignment] = useState('left');
 
@@ -74,7 +74,7 @@ export function TiresFilter({ activeFilter, onFilterChange }) {
               }
               color={activeFilter.season.includes('winter') ? 'primary' : 'default'}
               disableElevation
-              onClick={() => onFilterChange('winter', 'season')}
+              onClick={() => onBtnChange('winter', 'season')}
             >
               Зима
             </Button>
@@ -86,7 +86,7 @@ export function TiresFilter({ activeFilter, onFilterChange }) {
               }
               color={activeFilter.season.includes('summer') ? 'primary' : 'default'}
               disableElevation
-              onClick={() => onFilterChange('summer', 'season')}
+              onClick={() => onBtnChange('summer', 'season')}
             >
               Лето
             </Button>
@@ -111,7 +111,7 @@ export function TiresFilter({ activeFilter, onFilterChange }) {
                     color="primary"
                     checked={activeFilter.protectors.includes(filter)}
                     //value={check.agree}
-                    onChange={() => onFilterChange(filter, 'protectors')}
+                    onChange={() => onCheckboxChange(filter, 'protectors')}
                     name={filter}
                   />
                 }

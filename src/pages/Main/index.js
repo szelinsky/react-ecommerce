@@ -70,7 +70,8 @@ export function Main() {
         <Grid item xs={12} md={3}>
           <TiresFilter
             activeFilter={products.activeFilter}
-            onFilterChange={products.onFilterChange}
+            onCheckboxChange={products.onCheckboxChange}
+            onBtnChange={products.onBtnChange}
           />
         </Grid>
 

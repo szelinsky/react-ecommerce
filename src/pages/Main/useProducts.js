@@ -10,7 +10,12 @@ export const useProducts = () => {
   });
   const [filteredList, setFilteredList] = useState([]);
 
-  const onFilterChange = (filter, category) => {
+  const onBtnChange = (filter, category) => {
+    //console.log(filter, category);
+    setActiveFilter((prevState) => ({ ...prevState, season: filter }));
+  };
+
+  const onCheckboxChange = (filter, category) => {
     const activeCategory = activeFilter[category];
     if (category === 'protectors') {
       //remove checkboxes from state
@@ -76,7 +81,8 @@ export const useProducts = () => {
   }, [activeFilter]);
   return {
     activeFilter,
-    onFilterChange,
+    onCheckboxChange,
+    onBtnChange,
     filteredList,
     data,
   };
