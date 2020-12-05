@@ -75,7 +75,7 @@ export function Main() {
         </Grid>
 
         <Grid item xs={12} md={9}>
-          <TiresCard data={products.filteredList.length === 0 ? products.data : products.filteredList} />
+          <TiresCard data={products.filteredList} />
         </Grid>
       </Grid>
     </Container>

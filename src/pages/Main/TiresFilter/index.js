@@ -5,8 +5,6 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -58,7 +56,7 @@ export function TiresFilter({ activeFilter, onFilterChange }) {
 
   return (
     <div className={classes.root}>
-      <Accordion>
+      <Accordion defaultExpanded={true}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -69,15 +67,24 @@ export function TiresFilter({ activeFilter, onFilterChange }) {
         <AccordionDetails>
           <div className={classes.btn}>
             <Button
-              variant="outlined"
+              variant={
+                activeFilter.season.includes('winter')
+                  ? 'contained'
+                  : 'outlined'
+              }
+              color={activeFilter.season.includes('winter') ? 'primary' : 'default'}
               disableElevation
               onClick={() => onFilterChange('winter', 'season')}
             >
               Зима
             </Button>
             <Button
-              variant="contained"
-              color="primary"
+              variant={
+                activeFilter.season.includes('summer')
+                  ? 'contained'
+                  : 'outlined'
+              }
+              color={activeFilter.season.includes('summer') ? 'primary' : 'default'}
               disableElevation
               onClick={() => onFilterChange('summer', 'season')}
             >
@@ -114,7 +121,7 @@ export function TiresFilter({ activeFilter, onFilterChange }) {
           </FormGroup>
         </AccordionDetails>
       </Accordion>
-      <Accordion>
+      <Accordion defaultExpanded={true}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3a-content"

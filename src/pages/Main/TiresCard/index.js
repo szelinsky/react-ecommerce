@@ -9,6 +9,8 @@ import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { PROTECTOR_VALUES } from '../../../constants/protectors';
+import { SEASON_NAMES } from '../../../constants/season';
+import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,10 +34,26 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  notFound: {
+    align: 'center',
+    marginTop: theme.spacing(6),
+  },
 }));
 
 export function TiresCard({ data }) {
   const classes = useStyles();
+  if (data.length === 0) {
+    return (
+      <div className={classes.notFound}>
+        <Typography align="center">
+          <SentimentDissatisfiedIcon color="primary" style={{ fontSize: 60 }} />
+        </Typography>
+        <Typography variant="h6" gutterBottom align="center">
+          К сожалению по вашему запросу ничего не найдено
+        </Typography>
+      </div>
+    );
+  }
   return (
     <Grid container spacing={3}>
       {data.map((product) => (
@@ -52,7 +70,7 @@ export function TiresCard({ data }) {
               </Typography>
 
               <Typography variant="body1" component={'p'} gutterBottom>
-                Сезон: {product.season}
+                Сезон: {SEASON_NAMES[product.season]}
               </Typography>
               <Typography variant="body1" component={'p'} gutterBottom>
                 Высота протектора: {PROTECTOR_VALUES[product.protector]}
