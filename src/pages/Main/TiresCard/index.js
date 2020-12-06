@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { PROTECTOR_VALUES } from '../../../constants/protectors';
+import { PROTECTOR_NAMES } from '../../../constants/protectors';
 import { SEASON_NAMES } from '../../../constants/season';
 import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
 
@@ -73,7 +73,7 @@ export function TiresCard({ data }) {
                 Сезон: {SEASON_NAMES[product.season]}
               </Typography>
               <Typography variant="body1" component={'p'} gutterBottom>
-                Высота протектора: {PROTECTOR_VALUES[product.protector]}
+                Высота протектора: {PROTECTOR_NAMES[product.protector]}
               </Typography>
               <Typography variant="body1" component={'p'} gutterBottom>
                 Наличие: {product.quantity} шт

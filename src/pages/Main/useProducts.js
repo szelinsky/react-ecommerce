@@ -7,57 +7,39 @@ export const useProducts = () => {
   const [activeFilter, setActiveFilter] = useState({
     protectors: [],
     season: '',
+    quantity: '',
   });
   const [filteredList, setFilteredList] = useState([]);
 
-  const onBtnChange = (filter, category) => {
-    //console.log(filter, category);
-    setActiveFilter((prevState) => ({ ...prevState, season: filter }));
+  const onBtnChange = (clickedFilter, category) => {
+    setActiveFilter((prevState) => ({
+      ...prevState,
+      [category]: clickedFilter,
+    }));
   };
 
-  const onCheckboxChange = (filter, category) => {
+  const onCheckboxChange = (checkedFilter, category) => {
     const activeCategory = activeFilter[category];
-    if (category === 'protectors') {
-      //remove checkboxes from state
-      if (activeCategory.includes(filter)) {
-        const filterIndex = activeCategory.indexOf(filter);
-        const newFilterArr = [...activeCategory];
-        newFilterArr.splice(filterIndex, 1);
-        setActiveFilter((prevState) => ({
-          ...prevState,
-          [category]: newFilterArr,
-        }));
-      } else {
-        //add checkboxes to state
-        setActiveFilter({
-          ...activeFilter,
-          [category]: [...activeCategory, filter],
-        });
-      }
+    //remove checkboxes from state array
+    if (activeCategory.includes(checkedFilter)) {
+      const filterIndex = activeCategory.indexOf(checkedFilter);
+      const newFilterArr = [...activeCategory];
+      newFilterArr.splice(filterIndex, 1);
+      setActiveFilter((prevState) => ({
+        ...prevState,
+        [category]: newFilterArr,
+      }));
     } else {
-      //console.log(filter)
-      setActiveFilter({ ...activeFilter, [category]: filter });
+      //add checkboxes to state array
+      setActiveFilter({
+        ...activeFilter,
+        [category]: [...activeCategory, checkedFilter],
+      });
     }
   };
 
   useEffect(() => {
     const renderData = () => {
-      //const protectors = Object.values(PROTECTORS);
-      
-      // if (
-      //   activeFilter.protectors.length === 0 ||
-      //   activeFilter.protectors.length === protectors.length
-      // ) {
-      //   setData(data);
-      //   setFilteredList([]);
-      // }
-
-      // if (activeFilter.season.length !== 0) {
-      //   const seasonFilter = data.filter((item) =>
-      //     activeFilter.season.includes(item.season)
-      //   );
-      //   setFilteredList(seasonFilter);
-      // }
       let filterProducts = [...data];
 
       //filter by protector
@@ -73,8 +55,14 @@ export const useProducts = () => {
           (item) => item.season === activeFilter.season
         );
       }
+
+      //filter by quantity
+      if (activeFilter.quantity) {
+        filterProducts = filterProducts.filter(
+          (item) => item.quantity === Number(activeFilter.quantity)
+        );
+      }
       setFilteredList(filterProducts);
-      //setActiveFilter({...activeFilter, season: ''})
     };
     renderData();
     // eslint-disable-next-line react-hooks/exhaustive-deps

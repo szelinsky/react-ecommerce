@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { PROTECTORS, PROTECTOR_NAMES } from '../../../constants/protectors';
+import { SEASON, SEASON_NAMES } from '../../../constants/season';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -9,7 +11,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-import { PROTECTORS, PROTECTOR_VALUES } from '../../../constants/protectors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,7 +53,8 @@ export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
   // };
 
   //useEffect(() => protectorFilter(check)); //без useEffect показывал prevState при поднятии
-  const protectorFilters = Object.values(PROTECTORS);
+  const protectorFilterTitles = Object.values(PROTECTORS);
+  const seasonFilterTitles = Object.values(SEASON);
 
   return (
     <div className={classes.root}>
@@ -66,30 +68,21 @@ export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
         </AccordionSummary>
         <AccordionDetails>
           <div className={classes.btn}>
-            <Button
-              variant={
-                activeFilter.season.includes('winter')
-                  ? 'contained'
-                  : 'outlined'
-              }
-              color={activeFilter.season.includes('winter') ? 'primary' : 'default'}
-              disableElevation
-              onClick={() => onBtnChange('winter', 'season')}
-            >
-              Зима
-            </Button>
-            <Button
-              variant={
-                activeFilter.season.includes('summer')
-                  ? 'contained'
-                  : 'outlined'
-              }
-              color={activeFilter.season.includes('summer') ? 'primary' : 'default'}
-              disableElevation
-              onClick={() => onBtnChange('summer', 'season')}
-            >
-              Лето
-            </Button>
+            {seasonFilterTitles.map((title, index) => (
+              <Button
+                key={index}
+                variant={
+                  activeFilter.season.includes(title) ? 'contained' : 'outlined'
+                }
+                color={
+                  activeFilter.season.includes(title) ? 'primary' : 'default'
+                }
+                disableElevation
+                onClick={() => onBtnChange(title, 'season')}
+              >
+                {SEASON_NAMES[title]}
+              </Button>
+            ))}
           </div>
         </AccordionDetails>
       </Accordion>
@@ -103,19 +96,19 @@ export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
         </AccordionSummary>
         <AccordionDetails>
           <FormGroup>
-            {protectorFilters.map((filter, index) => (
+            {protectorFilterTitles.map((title, index) => (
               <FormControlLabel
                 key={index}
                 control={
                   <Checkbox
                     color="primary"
-                    checked={activeFilter.protectors.includes(filter)}
+                    checked={activeFilter.protectors.includes(title)}
                     //value={check.agree}
-                    onChange={() => onCheckboxChange(filter, 'protectors')}
-                    name={filter}
+                    onChange={() => onCheckboxChange(title, 'protectors')}
+                    name={title}
                   />
                 }
-                label={PROTECTOR_VALUES[filter]}
+                label={PROTECTOR_NAMES[title]}
               />
             ))}
           </FormGroup>
@@ -131,10 +124,70 @@ export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
         </AccordionSummary>
         <AccordionDetails>
           <div className={classes.btn}>
-            <Button variant="outlined">1 шт</Button>
-            <Button variant="outlined">2 шт</Button>
-            <Button variant="outlined">3 шт</Button>
-            <Button variant="outlined" fullWidth className={classes.fullWidth}>
+            <Button
+              variant={
+                activeFilter.quantity.includes(String(1))
+                  ? 'contained'
+                  : 'outlined'
+              }
+              color={
+                activeFilter.quantity.includes(String(1))
+                  ? 'primary'
+                  : 'default'
+              }
+              disableElevation
+              onClick={() => onBtnChange(String(1), 'quantity')}
+            >
+              1 шт
+            </Button>
+            <Button
+              variant={
+                activeFilter.quantity.includes(String(2))
+                  ? 'contained'
+                  : 'outlined'
+              }
+              color={
+                activeFilter.quantity.includes(String(2))
+                  ? 'primary'
+                  : 'default'
+              }
+              disableElevation
+              onClick={() => onBtnChange(String(2), 'quantity')}
+            >
+              2 шт
+            </Button>
+            <Button
+              variant={
+                activeFilter.quantity.includes(String(3))
+                  ? 'contained'
+                  : 'outlined'
+              }
+              color={
+                activeFilter.quantity.includes(String(3))
+                  ? 'primary'
+                  : 'default'
+              }
+              disableElevation
+              onClick={() => onBtnChange(String(3), 'quantity')}
+            >
+              3 шт
+            </Button>
+            <Button
+              variant={
+                activeFilter.quantity.includes(String(4))
+                  ? 'contained'
+                  : 'outlined'
+              }
+              color={
+                activeFilter.quantity.includes(String(4))
+                  ? 'primary'
+                  : 'default'
+              }
+              disableElevation
+              onClick={() => onBtnChange(String(4), 'quantity')}
+              fullWidth
+              className={classes.fullWidth}
+            >
               4 шт
             </Button>
           </div>
