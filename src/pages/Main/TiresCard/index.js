@@ -15,7 +15,7 @@ import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied'
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
   },
   media: {
     height: 0,
@@ -62,7 +62,7 @@ export function TiresCard({ data }) {
             <CardMedia
               className={classes.media}
               image={product.photo}
-              title="Paella dish"
+              title={product.name}
             />
             <CardContent>
               <Typography className={classes.title} variant="h6" component="h2">

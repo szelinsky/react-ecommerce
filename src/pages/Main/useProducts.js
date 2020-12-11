@@ -1,21 +1,36 @@
 import { useState, useEffect } from 'react';
 import db from '../../data.json';
-//import { PROTECTORS } from '../../constants/protectors';
+//import shortId from 'shortid'
+
+const initialFilterState = {
+  protectors: [],
+  season: '',
+  quantity: '',
+};
 
 export const useProducts = () => {
   const [data] = useState(db.products);
-  const [activeFilter, setActiveFilter] = useState({
-    protectors: [],
-    season: '',
-    quantity: '',
-  });
-  const [filteredList, setFilteredList] = useState([]);
+  const [activeFilter, setActiveFilter] = useState(initialFilterState);
+  const [filteredProducts, setfilteredProducts] = useState([]);
+  const [clearAllFilters, setClearAllFilters] = useState(false);
+  const [clearFilter, setClearFilter] = useState([]);
 
   const onBtnChange = (clickedFilter, category) => {
     setActiveFilter((prevState) => ({
       ...prevState,
       [category]: clickedFilter,
     }));
+    //render clear all filters btn
+    setClearAllFilters(true);
+
+    //add some clear btm
+    //const activeFilterValues = Object.values(activeFilter)
+    //setClearFilter([...clearFilter, category.clickedFilter]);
+  };
+
+  const onClearBtnChange = () => {
+    setActiveFilter(initialFilterState);
+    setClearAllFilters(false);
   };
 
   const onCheckboxChange = (checkedFilter, category) => {
@@ -35,6 +50,8 @@ export const useProducts = () => {
         ...activeFilter,
         [category]: [...activeCategory, checkedFilter],
       });
+      //render clear btn
+      setClearAllFilters(true);
     }
   };
 
@@ -62,7 +79,17 @@ export const useProducts = () => {
           (item) => item.quantity === Number(activeFilter.quantity)
         );
       }
-      setFilteredList(filterProducts);
+
+      //add clear filter state arr
+      const activeFiltersArr = [
+        ...activeFilter.protectors,
+        activeFilter.season,
+        activeFilter.quantity,
+      ];
+      const clearArr = activeFiltersArr.filter((item) => item !== '');
+      setClearFilter(clearArr);
+
+      setfilteredProducts(filterProducts);
     };
     renderData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,7 +98,10 @@ export const useProducts = () => {
     activeFilter,
     onCheckboxChange,
     onBtnChange,
-    filteredList,
+    onClearBtnChange,
+    filteredProducts,
+    clearAllFilters,
+    clearFilter,
     data,
   };
 };

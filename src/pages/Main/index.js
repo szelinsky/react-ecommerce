@@ -1,9 +1,10 @@
 import { TiresCard } from './TiresCard';
 import { TiresFilter } from './TiresFilter';
+import { TiresSettings } from './TiresSettings';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useProducts } from './useProducts'
+import { useProducts } from './useProducts';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,14 +15,11 @@ const useStyles = makeStyles((theme) => ({
     width: 100,
   },
   control: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(3),
   },
 }));
 
 export function Main() {
-  
-  
-
   // useEffect(() => {
   //   const filterData = () => {
   //     const filterWords = [...checkboxFilter]
@@ -41,7 +39,6 @@ export function Main() {
   //   filterData();
   // }, [checkboxFilter]);
 
-
   // const convertStateToArray = (data) => {
   //   const entries = Object.entries(data);
   //   for (const entry of entries) {
@@ -58,14 +55,19 @@ export function Main() {
   //   if (checkboxObj[value]) result.push(value);
   // }
 
-
-
-
   const products = useProducts();
   const classes = useStyles();
 
   return (
     <Container>
+      <Grid>
+        <TiresSettings
+          onClearBtnChange={products.onClearBtnChange}
+          clearAllFilters={products.clearAllFilters}
+          clearFilter={products.clearFilter}
+        />
+      </Grid>
+
       <Grid container className={classes.root} spacing={3}>
         <Grid item xs={12} md={3}>
           <TiresFilter
@@ -74,9 +76,8 @@ export function Main() {
             onBtnChange={products.onBtnChange}
           />
         </Grid>
-
         <Grid item xs={12} md={9}>
-          <TiresCard data={products.filteredList} />
+          <TiresCard data={products.filteredProducts} />
         </Grid>
       </Grid>
     </Container>
