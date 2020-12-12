@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Box from '@material-ui/core/Box';
 import Brightness5Icon from '@material-ui/icons/Brightness5';
 import AcUnitIcon from '@material-ui/icons/AcUnit';
-import HeightIcon from '@material-ui/icons/Height';
+//import HeightIcon from '@material-ui/icons/Height';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,19 +21,16 @@ const useStyles = makeStyles((theme) => ({
 
 export const TiresSettings = ({
   clearAllFilters,
-  clearFilter,
+  activeFilter,
+  setActiveFilter,
   onClearBtnChange,
 }) => {
-	const classes = useStyles();
-	//const [chipData, setChipData] = useState(clearFilter);
-	//setChipData(clearFilter)
-	//console.log('clearFilter', clearFilter)
-	//console.log(chipData)
-	
-  const handleDelete = (chipToDelete) => () => {
-    // setChipData((chips) =>
-    //   chips.filter((chip) => chip.key !== chipToDelete.key)
-    // );
+  const classes = useStyles();
+
+  const handleDelete = (itemToDelete) => () => {
+    setActiveFilter((items) =>
+      items.filter((item) => item.value !== itemToDelete.value)
+    );
   };
 
   return (
@@ -49,27 +45,23 @@ export const TiresSettings = ({
           />
         </li>
       )}
-      {clearFilter.map((data) => {
+      {activeFilter.map((item) => {
         let icon;
 
-        // if (data.label === 'Лето') {
-        //   icon = <Brightness5Icon />;
-        // }
+        if (item.value === 'summer') {
+          icon = <Brightness5Icon />;
+        }
 
-        // if (data.label === 'Зима') {
-        //   icon = <AcUnitIcon />;
-        // }
-
-        // if (data.label === '5-6 мм') {
-        //   icon = <HeightIcon />;
-        // }
+        if (item.value === 'winter') {
+          icon = <AcUnitIcon />;
+        }
 
         return (
-          <li key={data}>
+          <li key={item.value}>
             <Chip
               icon={icon}
-              label={data}
-              onDelete={handleDelete(data)}
+              label={item.label}
+              onDelete={handleDelete(item)}
               className={classes.chip}
               variant="outlined"
               color="primary"

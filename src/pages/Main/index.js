@@ -62,9 +62,10 @@ export function Main() {
     <Container>
       <Grid>
         <TiresSettings
+          activeFilter={products.activeFilter}
+          setActiveFilter={products.setActiveFilter}
           onClearBtnChange={products.onClearBtnChange}
           clearAllFilters={products.clearAllFilters}
-          clearFilter={products.clearFilter}
         />
       </Grid>
 

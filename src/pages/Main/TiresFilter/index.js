@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { PROTECTORS, PROTECTOR_NAMES } from '../../../constants/protectors';
 import { SEASON, SEASON_NAMES } from '../../../constants/season';
+import { QUANTITY, QUANTITY_NAMES } from '../../../constants/quantity';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -33,34 +33,10 @@ const useStyles = makeStyles((theme) => ({
 
 export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
   const classes = useStyles();
-  const [alignment, setAlignment] = useState('left');
 
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
-  };
-
-  const btnVariant = (arr, value, category) => {
-    console.log('arr', arr);
-    // const isInState = arr.some(item => item[category] === value)
-    // return isInState ? 'contained' : 'outlined'
-  };
-
-  // const [check, setCheck] = useState([
-  //   { name: '5_6mm', checked: true },
-  //   { name: '7mm', checked: true },
-  //   { name: 'new', checked: true },
-  // ]);
-
-  // const handleCheckbox = (index) => (e) => {
-  //   // !!!РАЗБЕРИСЬ!!!!
-  //   const changedState = [...check];
-  //   changedState[index] = { name: e.target.name, checked: e.target.checked };
-  //   setCheck(changedState);
-  // };
-
-  //useEffect(() => protectorFilter(check)); //без useEffect показывал prevState при поднятии
   const protectorFilterTitles = Object.values(PROTECTORS);
   const seasonFilterTitles = Object.values(SEASON);
+  const quantityFilterTitles = Object.values(QUANTITY);
 
   return (
     <div className={classes.root}>
@@ -88,7 +64,9 @@ export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
                     : 'default'
                 }
                 disableElevation
-                onClick={() => onBtnChange(title, 'season')}
+                onClick={() =>
+                  onBtnChange(title, 'season', SEASON_NAMES[title])
+                }
               >
                 {SEASON_NAMES[title]}
               </Button>
@@ -113,8 +91,13 @@ export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
                   <Checkbox
                     color="primary"
                     checked={activeFilter.some((item) => item.value === title)}
-                    //value={check.agree}
-                    onChange={() => onCheckboxChange(title, 'protectors')}
+                    onChange={() =>
+                      onCheckboxChange(
+                        title,
+                        'protectors',
+                        PROTECTOR_NAMES[title]
+                      )
+                    }
                     name={title}
                   />
                 }
@@ -134,72 +117,31 @@ export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
         </AccordionSummary>
         <AccordionDetails>
           <div className={classes.btn}>
-            <Button
-              variant={
-                activeFilter.some((item) => item.value === 1)
-                  ? 'contained'
-                  : 'outlined'
-              }
-              color={
-                activeFilter.some((item) => item.value === 1)
-                  ? 'primary'
-                  : 'default'
-              }
-              disableElevation
-              onClick={() => onBtnChange(1, 'quantity')}
-            >
-              1 шт
-            </Button>
-            <Button
-              variant={
-                activeFilter.some((item) => item.value === 2)
-                  ? 'contained'
-                  : 'outlined'
-              }
-              color={
-                activeFilter.some((item) => item.value === 2)
-                  ? 'primary'
-                  : 'default'
-              }
-              disableElevation
-              onClick={() => onBtnChange(2, 'quantity')}
-            >
-              2 шт
-            </Button>
-            <Button
-              variant={
-                activeFilter.some((item) => item.value === 3)
-                  ? 'contained'
-                  : 'outlined'
-              }
-              color={
-                activeFilter.some((item) => item.value === 3)
-                  ? 'primary'
-                  : 'default'
-              }
-              disableElevation
-              onClick={() => onBtnChange(3, 'quantity')}
-            >
-              3 шт
-            </Button>
-            <Button
-              variant={
-                activeFilter.some((item) => item.value === 4)
-                  ? 'contained'
-                  : 'outlined'
-              }
-              color={
-                activeFilter.some((item) => item.value === 4)
-                  ? 'primary'
-                  : 'default'
-              }
-              disableElevation
-              onClick={() => onBtnChange(4, 'quantity')}
-              fullWidth
-              className={classes.fullWidth}
-            >
-              4 шт
-            </Button>
+            {quantityFilterTitles.map((title, index) => (
+              <Button
+                key={index}
+                variant={
+                  activeFilter.some((item) => item.value === title)
+                    ? 'contained'
+                    : 'outlined'
+                }
+                color={
+                  activeFilter.some((item) => item.value === title)
+                    ? 'primary'
+                    : 'default'
+                }
+                disableElevation
+                onClick={() =>
+                  onBtnChange(title, 'quantity', QUANTITY_NAMES[title])
+                }
+                className={
+                  quantityFilterTitles[index] === 4 ? classes.fullWidth : null
+                }
+
+              >
+                {QUANTITY_NAMES[title]}
+              </Button>
+            ))}
           </div>
         </AccordionDetails>
       </Accordion>

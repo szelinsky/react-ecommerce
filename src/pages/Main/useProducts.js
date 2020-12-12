@@ -9,9 +9,8 @@ export const useProducts = () => {
   const [activeFilter, setActiveFilter] = useState([]);
   const [filteredProducts, setfilteredProducts] = useState([]);
   const [clearAllFilters, setClearAllFilters] = useState(false);
-  const [clearFilter, setClearFilter] = useState([]);
 
-  const onBtnChange = (clickedFilter, category) => {
+  const onBtnChange = (clickedFilter, category, label) => {
     //change clicked filter if exist
     const isExist = activeFilter.some((item) => item.category === category);
     if (isExist) {
@@ -19,22 +18,18 @@ export const useProducts = () => {
       const categoryIndex = copyState.findIndex(
         (item) => item.category === category
       );
-      copyState[categoryIndex] = { category, value: clickedFilter };
+      copyState[categoryIndex] = { category, value: clickedFilter, label };
       setActiveFilter(copyState);
       //add new
     } else {
       setActiveFilter((prevState) => [
         ...prevState,
-        { category, value: clickedFilter },
+        { category, value: clickedFilter, label },
       ]);
     }
 
     //render clear all filters btn
     setClearAllFilters(true);
-
-    //add some clear btm
-    //const activeFilterValues = Object.values(activeFilter)
-    //setClearFilter([...clearFilter, category.clickedFilter]);
   };
 
   const onClearBtnChange = () => {
@@ -42,7 +37,7 @@ export const useProducts = () => {
     setClearAllFilters(false);
   };
 
-  const onCheckboxChange = (checkedFilter, category) => {
+  const onCheckboxChange = (checkedFilter, category, label) => {
     //remove checkboxes from state array
     const isExist = activeFilter.some((item) => item.value === checkedFilter);
     if (isExist) {
@@ -51,7 +46,7 @@ export const useProducts = () => {
       );
     } else {
       //add checkboxes to state array
-      setActiveFilter([...activeFilter, { category, value: checkedFilter }]);
+      setActiveFilter([...activeFilter, { category, value: checkedFilter, label }]);
       //render clear btn
       setClearAllFilters(true);
     }
@@ -66,7 +61,7 @@ export const useProducts = () => {
         const clickedFilter = activeFilter.filter(
           (item) => item.category === 'protectors'
         );
-        const protectorsArray = clickedFilter.map(el => el.value);
+        const protectorsArray = clickedFilter.map((el) => el.value);
         filterProducts = filterProducts.filter((elem) =>
           protectorsArray.includes(elem.protector)
         );
@@ -82,7 +77,7 @@ export const useProducts = () => {
         );
       }
 
-      // //filter by quantity
+      //filter by quantity
       if (activeFilter.some((item) => item.category === 'quantity')) {
         const clickedFilter = activeFilter.find(
           (item) => item.category === 'quantity'
@@ -92,15 +87,12 @@ export const useProducts = () => {
         );
       }
 
-      // //add clear filter state arr
-      // const activeFiltersArr = [
-      //   ...activeFilter.protectors,
-      //   activeFilter.season,
-      //   activeFilter.quantity,
-      // ];
-      // const clearArr = activeFiltersArr.filter((item) => item !== '');
-      // setClearFilter(clearArr);
+      //remove clear filters btn
+      if (activeFilter.length === 0) {
+        setClearAllFilters(false);
+      }
 
+      //show products
       setfilteredProducts(filterProducts);
     };
     renderData();
@@ -108,12 +100,12 @@ export const useProducts = () => {
   }, [activeFilter]);
   return {
     activeFilter,
+    setActiveFilter,
     onCheckboxChange,
     onBtnChange,
     onClearBtnChange,
     filteredProducts,
     clearAllFilters,
-    clearFilter,
     data,
   };
 };
