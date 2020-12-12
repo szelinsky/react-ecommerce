@@ -28,7 +28,7 @@ export const TiresSettings = ({
 	const classes = useStyles();
 	//const [chipData, setChipData] = useState(clearFilter);
 	//setChipData(clearFilter)
-	console.log('clearFilter', clearFilter)
+	//console.log('clearFilter', clearFilter)
 	//console.log(chipData)
 	
   const handleDelete = (chipToDelete) => () => {

@@ -39,6 +39,12 @@ export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
     setAlignment(newAlignment);
   };
 
+  const btnVariant = (arr, value, category) => {
+    console.log('arr', arr);
+    // const isInState = arr.some(item => item[category] === value)
+    // return isInState ? 'contained' : 'outlined'
+  };
+
   // const [check, setCheck] = useState([
   //   { name: '5_6mm', checked: true },
   //   { name: '7mm', checked: true },
@@ -72,10 +78,14 @@ export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
               <Button
                 key={index}
                 variant={
-                  activeFilter.season.includes(title) ? 'contained' : 'outlined'
+                  activeFilter.some((item) => item.value === title)
+                    ? 'contained'
+                    : 'outlined'
                 }
                 color={
-                  activeFilter.season.includes(title) ? 'primary' : 'default'
+                  activeFilter.some((item) => item.value === title)
+                    ? 'primary'
+                    : 'default'
                 }
                 disableElevation
                 onClick={() => onBtnChange(title, 'season')}
@@ -102,7 +112,7 @@ export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
                 control={
                   <Checkbox
                     color="primary"
-                    checked={activeFilter.protectors.includes(title)}
+                    checked={activeFilter.some((item) => item.value === title)}
                     //value={check.agree}
                     onChange={() => onCheckboxChange(title, 'protectors')}
                     name={title}
@@ -126,65 +136,65 @@ export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
           <div className={classes.btn}>
             <Button
               variant={
-                activeFilter.quantity.includes(String(1))
+                activeFilter.some((item) => item.value === 1)
                   ? 'contained'
                   : 'outlined'
               }
               color={
-                activeFilter.quantity.includes(String(1))
+                activeFilter.some((item) => item.value === 1)
                   ? 'primary'
                   : 'default'
               }
               disableElevation
-              onClick={() => onBtnChange(String(1), 'quantity')}
+              onClick={() => onBtnChange(1, 'quantity')}
             >
               1 шт
             </Button>
             <Button
               variant={
-                activeFilter.quantity.includes(String(2))
+                activeFilter.some((item) => item.value === 2)
                   ? 'contained'
                   : 'outlined'
               }
               color={
-                activeFilter.quantity.includes(String(2))
+                activeFilter.some((item) => item.value === 2)
                   ? 'primary'
                   : 'default'
               }
               disableElevation
-              onClick={() => onBtnChange(String(2), 'quantity')}
+              onClick={() => onBtnChange(2, 'quantity')}
             >
               2 шт
             </Button>
             <Button
               variant={
-                activeFilter.quantity.includes(String(3))
+                activeFilter.some((item) => item.value === 3)
                   ? 'contained'
                   : 'outlined'
               }
               color={
-                activeFilter.quantity.includes(String(3))
+                activeFilter.some((item) => item.value === 3)
                   ? 'primary'
                   : 'default'
               }
               disableElevation
-              onClick={() => onBtnChange(String(3), 'quantity')}
+              onClick={() => onBtnChange(3, 'quantity')}
             >
               3 шт
             </Button>
             <Button
               variant={
-                activeFilter.quantity.includes(String(4))
+                activeFilter.some((item) => item.value === 4)
                   ? 'contained'
                   : 'outlined'
               }
               color={
-                activeFilter.quantity.includes(String(4))
+                activeFilter.some((item) => item.value === 4)
                   ? 'primary'
                   : 'default'
               }
               disableElevation
-              onClick={() => onBtnChange(String(4), 'quantity')}
+              onClick={() => onBtnChange(4, 'quantity')}
               fullWidth
               className={classes.fullWidth}
             >
