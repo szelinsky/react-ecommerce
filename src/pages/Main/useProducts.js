@@ -7,8 +7,30 @@ const initialFilterState = [];
 export const useProducts = () => {
   const [data] = useState(db.products);
   const [activeFilter, setActiveFilter] = useState([]);
+  const [activeSort, setActiveSort] = useState();
   const [filteredProducts, setfilteredProducts] = useState([]);
   const [clearAllFilters, setClearAllFilters] = useState(false);
+
+  const onSortChanged = (selectedOption) => {
+    //console.log(selectedOption)
+    setActiveSort(selectedOption);
+    //console.log(activeSort)
+    if (selectedOption.value === 'cheap') {
+      const sortbyAsc = (a, b) => a.price - b.price;
+      const sorted = data.sort(sortbyAsc);
+      setfilteredProducts(sorted);
+    }
+    if (selectedOption.value === 'expensive') {
+      const sortbyAsc = (a, b) => b.price - a.price;
+      const sorted = data.sort(sortbyAsc);
+      setfilteredProducts(sorted);
+    }
+    if (selectedOption.value === 'novelty') {
+      const sortbyAsc = (a, b) => a.id - b.id;
+      const sorted = data.sort(sortbyAsc);
+      setfilteredProducts(sorted);
+    }
+  };
 
   const onBtnChange = (clickedFilter, category, label) => {
     //change clicked filter if exist
@@ -46,7 +68,10 @@ export const useProducts = () => {
       );
     } else {
       //add checkboxes to state array
-      setActiveFilter([...activeFilter, { category, value: checkedFilter, label }]);
+      setActiveFilter([
+        ...activeFilter,
+        { category, value: checkedFilter, label },
+      ]);
       //render clear btn
       setClearAllFilters(true);
     }
@@ -104,6 +129,7 @@ export const useProducts = () => {
     onCheckboxChange,
     onBtnChange,
     onClearBtnChange,
+    onSortChanged,
     filteredProducts,
     clearAllFilters,
     data,

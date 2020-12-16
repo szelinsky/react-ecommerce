@@ -66,6 +66,7 @@ export function Main() {
           setActiveFilter={products.setActiveFilter}
           onClearBtnChange={products.onClearBtnChange}
           clearAllFilters={products.clearAllFilters}
+          onSortChanged={products.onSortChanged}
         />
       </Grid>
 
@@ -73,6 +74,7 @@ export function Main() {
         <Grid item xs={12} md={3}>
           <TiresFilter
             activeFilter={products.activeFilter}
+            clearAllFilters={products.clearAllFilters}
             onCheckboxChange={products.onCheckboxChange}
             onBtnChange={products.onBtnChange}
           />

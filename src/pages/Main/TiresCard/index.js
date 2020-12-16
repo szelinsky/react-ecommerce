@@ -49,7 +49,7 @@ export function TiresCard({ data }) {
           <SentimentDissatisfiedIcon color="primary" style={{ fontSize: 60 }} />
         </Typography>
         <Typography variant="h6" gutterBottom align="center">
-          К сожалению по вашему запросу ничего не найдено
+          К сожалению, по вашему запросу ничего не найдено
         </Typography>
       </div>
     );

@@ -137,7 +137,6 @@ export function TiresFilter({ activeFilter, onCheckboxChange, onBtnChange }) {
                 className={
                   quantityFilterTitles[index] === 4 ? classes.fullWidth : null
                 }
-
               >
                 {QUANTITY_NAMES[title]}
               </Button>
