@@ -7,29 +7,12 @@ const initialFilterState = [];
 export const useProducts = () => {
   const [data] = useState(db.products);
   const [activeFilter, setActiveFilter] = useState([]);
-  const [activeSort, setActiveSort] = useState();
+  const [activeSort, setActiveSort] = useState({ value: 'novelty', label: 'Новинки' });
   const [filteredProducts, setfilteredProducts] = useState([]);
   const [clearAllFilters, setClearAllFilters] = useState(false);
 
   const onSortChanged = (selectedOption) => {
-    //console.log(selectedOption)
     setActiveSort(selectedOption);
-    //console.log(activeSort)
-    if (selectedOption.value === 'cheap') {
-      const sortbyAsc = (a, b) => a.price - b.price;
-      const sorted = data.sort(sortbyAsc);
-      setfilteredProducts(sorted);
-    }
-    if (selectedOption.value === 'expensive') {
-      const sortbyAsc = (a, b) => b.price - a.price;
-      const sorted = data.sort(sortbyAsc);
-      setfilteredProducts(sorted);
-    }
-    if (selectedOption.value === 'novelty') {
-      const sortbyAsc = (a, b) => a.id - b.id;
-      const sorted = data.sort(sortbyAsc);
-      setfilteredProducts(sorted);
-    }
   };
 
   const onBtnChange = (clickedFilter, category, label) => {
@@ -79,9 +62,28 @@ export const useProducts = () => {
 
   useEffect(() => {
     const renderData = () => {
+      console.log('activeSort');
       let filterProducts = [...data];
+      
+      //sorting from low to high
+      if (activeSort.value === 'cheap') {
+        const sortbyAscPrice = (a, b) => a.price - b.price;
+        filterProducts = filterProducts.sort(sortbyAscPrice);
+      }
 
-      // //filter by protector
+      //sorting from high to low
+      if (activeSort.value === 'expensive') {
+        const sortbyDescPrice = (a, b) => b.price - a.price;
+        filterProducts = filterProducts.sort(sortbyDescPrice);
+      }
+
+      //temporary sorting
+      if (activeSort.value === 'novelty') {
+        const sortbyAsc = (a, b) => a.id - b.id;
+        filterProducts = filterProducts.sort(sortbyAsc);
+      }
+
+      //filter by protector
       if (activeFilter.some((item) => item.category === 'protectors')) {
         const clickedFilter = activeFilter.filter(
           (item) => item.category === 'protectors'
@@ -122,7 +124,7 @@ export const useProducts = () => {
     };
     renderData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeFilter]);
+  }, [activeFilter, activeSort]);
   return {
     activeFilter,
     setActiveFilter,
