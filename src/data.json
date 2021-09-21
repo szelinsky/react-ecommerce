@@ -6,7 +6,7 @@
       "season": "winter",
       "protector": "new",
       "quantity": 3,
-      "photo": "http://localhost:3000/images/tire01.png",
+      "photo": "/images/tire01.png",
       "price": 1250
     },
     {
@@ -15,7 +15,7 @@
       "season": "summer",
       "protector": "5_6mm",
       "quantity": 4,
-      "photo": "http://localhost:3000/images/tire02.png",
+      "photo": "/images/tire02.png",
       "price": 1650
     },
     {
@@ -24,7 +24,7 @@
       "season": "winter",
       "protector": "new",
       "quantity": 2,
-      "photo": "http://localhost:3000/images/tire03.png",
+      "photo": "/images/tire03.png",
       "price": 1800
     },
     {
@@ -33,7 +33,7 @@
       "season": "winter",
       "protector": "7mm",
       "quantity": 1,
-      "photo": "http://localhost:3000/images/tire04.png",
+      "photo": "/images/tire04.png",
       "price": 1350
     },
     {
@@ -42,7 +42,7 @@
       "season": "summer",
       "protector": "5_6mm",
       "quantity": 3,
-      "photo": "http://localhost:3000/images/tire05.png",
+      "photo": "/images/tire05.png",
       "price": 900
     }
   ]
